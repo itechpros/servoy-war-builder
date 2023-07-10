@@ -13,6 +13,12 @@ try {
     const servoyVersion = core.getInput("servoy-version");
     verifyServoyImage(servoyVersion);
 
+    // DEBUG: Output environment variables
+    Object.keys(process.env).forEach((keyName) => {
+        core.info(`${keyName} = ${process.env[keyName]}`);
+    });
+    // END DEBUG
+
     // Build our command before we pull down the Docker image, so the user doesn't have to wait until the download completes
     // before they know something trivial is wrong.
     let commandArguments = buildDockerRunCommand();
