@@ -139,7 +139,7 @@ function buildDockerRunCommand() {
     if (core.getInput("licenses") !== "") {
         let licenses = core.getMultilineInput("licenses");
         licenses.forEach((license) => {
-            let licenseParts = license.split(" ");
+            let licenseParts = splitLicenseParts(license);
             if (licenseParts.length !== 3) {
                 core.setFailed(`Invalid license format: ${license}`);
                 process.exit();
@@ -175,6 +175,21 @@ function verifyServoyImage(servoyVersion) {
         core.setFailed(`Servoy version not found: ${servoyVersion}`);
         process.exit();
     }
+}
+
+function splitLicenseParts(license) {
+    // Split on space, but allow quotes.
+    let licenseRegexp = /[^\s"]+|"([^"]*)"/gi,
+        resultArray = [],
+        match;
+    
+        do {
+        match = licenseRegexp.exec(license);
+        if (match != null)
+            resultArray.push(match[1] ? match[1] : match[0]);
+    } while (match != null);
+    
+    return resultArray;
 }
 
 function downloadServoyImage(servoyVersion) {
