@@ -2,6 +2,7 @@
 
 const core = require("@actions/core");
 const childProcess = require("child_process");
+const fs = require("fs");
 
 try {
     // Check to make sure the requested Servoy version exists in our GitHub Container Registry
@@ -38,7 +39,24 @@ function buildDockerRunCommand() {
 
     let commandArguments = [
         "run", "--rm",
-        "-v", `${process.env.GITHUB_WORKSPACE}:/servoy_code`,
+        "-v", `${process.env.GITHUB_WORKSPACE}:/servoy_code`
+    ], extrasFolder = core.getInput("extras-folder");
+    if (extrasFolder !== "") {
+        let extrasFolderFullPath = `${process.env.GITHUB_WORKSPACE}/${extrasFolder}`;
+
+        // Make sure the extras folder exists, and contains an application_server folder.
+        if (!fs.existsSync(extrasFolderFullPath)) {
+            core.setFailed(`Extras folder ${extrasFolder} does not exist.`);
+            process.exit();
+        } else if (!fs.existsSync(`${extrasFolderFullPath}/application_server`)) {
+            core.setFailed('Invalid extras folder. Should contain a sub-directory named "application_server".');
+            process.exit();
+        } else {
+            commandArguments = commandArguments.concat(["-v", `${extrasFolderFullPath}:/servoy_extras`]);
+        }
+    }
+
+    commandArguments = commandArguments.concat([
         `ghcr.io/itechpros/servoy_builder:${servoyVersion}`,
         "-k", apiKey,
         "-s", solutionName,
@@ -46,7 +64,7 @@ function buildDockerRunCommand() {
         "-data", "/servoy_code",
         "-defaultAdminUser", defaultAdminUser,
         "-defaultAdminPassword", defaultAdminPassword
-    ];
+    ]);
 
     let stringFields = {
         "properties-file": "-p",

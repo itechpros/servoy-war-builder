@@ -136,6 +136,8 @@ inputs:
     default: false
   licenses:
     description: "Space delimited licenses to include in the WAR file. Format should be '<company_name> <code> <licenses>'. If you have multiple licenses, use multiple lines."
+  extras-folder:
+    description: "Path to the extras folder that contains additional plugins, drivers, etc. that should be included in the Servoy install."
 runs:
   using: 'node16'
   main: 'index.js'
