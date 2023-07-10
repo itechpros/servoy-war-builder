@@ -22,7 +22,7 @@ try {
     );
     if (~[null, 1].indexOf(inspectManifestProcess.status)) {
         // Manifest inspect failed (we don't have that version), so let's output what the command output was and set the failure.
-        core.error(inspectManifestProcess.stdout);
+        core.debug(inspectManifestProcess.stdout);
         core.setFailed(`Servoy version not found: ${servoyVersion}`);
         process.exit();
     }

@@ -20,7 +20,7 @@ try {
             ['rmi', `ghcr.io/itechpros/servoy_builder:${servoyVersion}`]
         );
         if (removeImageProcess.status !== 0)
-            core.error(`Failed to remove local WAR builder for Servoy version: ${servoyVersion}`);
+            core.info(`Failed to remove local WAR builder for Servoy version: ${servoyVersion}`);
     }
 } catch (e) {
     // Don't fail the build if we're unable to clean up. Just log it.
