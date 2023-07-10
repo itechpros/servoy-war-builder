@@ -3,21 +3,10 @@
 const core = require("@actions/core");
 const childProcess = require("child_process");
 
-function inputExists(inputName) {
-    let envVariableName = `INPUT_${inputName.replace(/ /g, '_').toUpperCase()}`;
-    return process.env.hasOwnProperty(envVariableName);
-}
-
 try {
     // Check to make sure the requested Servoy version exists in our GitHub Container Registry
     const servoyVersion = core.getInput("servoy-version");
     verifyServoyImage(servoyVersion);
-
-    // DEBUG: Output environment variables
-    Object.keys(process.env).forEach((keyName) => {
-        core.info(`${keyName} = ${process.env[keyName]}`);
-    });
-    // END DEBUG
 
     // Build our command before we pull down the Docker image, so the user doesn't have to wait until the download completes
     // before they know something trivial is wrong.
@@ -124,23 +113,23 @@ function buildDockerRunCommand() {
         "ng1": "-ng1"
     };
     Object.keys(stringFields).forEach((stringField) => {
-        if (!inputExists(stringField)) return;
+        let stringFieldValue = core.getInput(stringField),
+            stringFieldValues;
+
+        if (stringFieldValue === "") return;
 
         commandArguments.push(stringFields[stringField]);
 
-        let stringFieldValue = core.getInput(stringField),
-        stringFieldValues;
+        if (stringField === "allow-data-model-changes" && stringFieldValue === "all") return;
 
-        if (~multiValueStringFields.indexOf(stringField) || (multiValueStringFields === "allow-data-model-changes" && stringFieldValue !== "")) {
-        stringFieldValues = stringFieldValue.split(" ");
-        commandArguments = commandArguments.concat(stringFieldValues);
+        if (~multiValueStringFields.indexOf(stringField)) {
+            stringFieldValues = stringFieldValue.split(" ");
+            commandArguments = commandArguments.concat(stringFieldValues);
         } else {
-        commandArguments.push(stringFieldValue);
+            commandArguments.push(stringFieldValue);
         }
     });
     Object.keys(booleanFields).forEach((booleanField) => {
-        if (!inputExists(booleanField)) return;
-
         let booleanFieldValue = core.getBooleanInput(booleanField);
         if (!booleanFieldValue) return;
 
