@@ -113,6 +113,5 @@ inputs:
     description: "Export NG1 client resources"
 runs:
   using: 'node16'
-  pre: 'setup.js'
   main: 'index.js'
   post: 'cleanup.js'
