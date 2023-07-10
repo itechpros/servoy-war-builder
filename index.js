@@ -13,7 +13,7 @@ try {
     let commandArguments = buildDockerRunCommand();
     
     // Pull down the Docker image
-    downloadServoyImage();
+    downloadServoyImage(servoyVersion);
 
     // Our command is now ready. Let 'er rip.
     const dockerRunProcess = childProcess.spawnSync(
@@ -163,7 +163,7 @@ function verifyServoyImage(servoyVersion) {
     }
 }
 
-function downloadServoyImage() {
+function downloadServoyImage(servoyVersion) {
     core.info(`Downloading WAR builder for Servoy version: ${servoyVersion}`);
     const pullProcess = childProcess.spawnSync(
         'docker',
