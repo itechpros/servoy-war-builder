@@ -134,6 +134,8 @@ inputs:
   ng1:
     description: "Export NG1 client resources"
     default: false
+  licenses:
+    description: "Space delimited licenses to include in the WAR file. Format should be '<company_name> <code> <licenses>'. If you have multiple licenses, use multiple lines."
 runs:
   using: 'node16'
   main: 'index.js'

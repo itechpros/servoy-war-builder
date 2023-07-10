@@ -135,6 +135,20 @@ function buildDockerRunCommand() {
 
         commandArguments.push(booleanFields[booleanField]);
     });
+
+    if (core.getInput("licenses") !== "") {
+        let licenses = core.getMultilineInput("licenses");
+        licenses.forEach((license) => {
+            let licenseParts = license.split(" ");
+            if (licenseParts.length !== 3) {
+                core.setFailed(`Invalid license format: ${license}`);
+                process.exit();
+            }
+
+            commandArguments = commandArguments.concat(['-license', licenseParts[0], licenseParts[1], licenseParts[2]]);
+        });
+    }
+
     return commandArguments;
 }
 
