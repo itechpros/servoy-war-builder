@@ -16,7 +16,7 @@ jobs:
      - name: Checkout                               # Checkout the repo
        uses: actions/checkout@v2
      - name: Servoy WAR Build                       # Run the Servoy WAR Build
-       uses: itechpros/servoy-war-builder@main
+       uses: itechpros/servoy-war-builder@v1
        with:
          servoy-version: 2023.03.2.3844
          api-key: ${{ secrets.SERVOY_COMPONENTS_API_KEY }}
@@ -37,7 +37,7 @@ jobs:
      - name: Checkout                               # Checkout the repo
        uses: actions/checkout@v2
      - name: Servoy WAR Build                       # Run the Servoy WAR Build
-       uses: itechpros/servoy-war-builder@main
+       uses: itechpros/servoy-war-builder@v1
        with:
          servoy-version: 2023.03.2.3844
          api-key: ${{ secrets.SERVOY_COMPONENTS_API_KEY }}
@@ -66,7 +66,7 @@ jobs:
      - name: Checkout                               # Checkout the repo
        uses: actions/checkout@v2
      - name: Servoy WAR Build                       # Run the Servoy WAR Build
-       uses: itechpros/servoy-war-builder@main
+       uses: itechpros/servoy-war-builder@v1
        with:
          servoy-version: 2023.03.2.3844
          api-key: ${{ secrets.SERVOY_COMPONENTS_API_KEY }}
