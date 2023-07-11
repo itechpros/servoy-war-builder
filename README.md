@@ -31,17 +31,17 @@ jobs:
 
 ## Options
 
--  ***servoy-version*** <span style="color: red;">*required*</span>  
+-  ***servoy-version*** 🔴 *required*  
    The full Servoy version to use for the build. To see a list of supported versions, please head over to [our servoy_builder package](https://github.com/itechpros/servoy-docker-github/pkgs/container/servoy_builder) to see the versions we support.
-- ***api-key*** <span style="color: red;">*required*</span>  
+- ***api-key*** 🔴 *required*  
   API key obtained from the ServoyComponents website from either the [commercial license](https://servoycomponents.com/components/plugins) or the [All Products Pack](https://servoycomponents.com/all-products-pack). We recommend putting this value in [GitHub Action Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to prevent accidental exposure through the GitHub Action logs, or from unauthorized users.
-- ***solution-name*** <span style="color: red;">*required*</span>  
+- ***solution-name*** 🔴 *required*  
   Name of the primary solution to export to the WAR file.  
   **WAR export flag**: `-s`  
-- ***default-admin-user*** <span style="color: red;">*required*</span>  
+- ***default-admin-user*** 🔴 *required*  
   Default admin username to include in the WAR file. We recommend putting this value in [GitHub Action Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to prevent accidental exposure through the GitHub Action logs, or from unauthorized users.  
   **WAR export flag**: `-defaultAdminUser`
-- ***default-admin-password*** <span style="color: red;">*required*</span>  
+- ***default-admin-password*** 🔴 *required*  
   Default admin password to include in the WAR file. We recommend putting this value in [GitHub Action Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to prevent accidental exposure through the GitHub Action logs, or from unauthorized users.  
   **WAR export flag**: `-defaultAdminPassword`
 - ***properties-file***  
@@ -55,7 +55,7 @@ jobs:
     properties-file: mydir/servoy.war.properties  # Use the servoy.war.properties file in the "mydir" directory of the repository
   ```
 - ***ignore-build-errors***  
-  Ignores build errors <span style="color: yellow;">(warning: use of this flag is discouraged; it can cause invalid solutions to be exported)</span>  
+  Ignores build errors 🟡 (warning: use of this flag is discouraged; it can cause invalid solutions to be exported)  
   **WAR export flag:** `-ie`  
   **Default:** false  
   **Examples:**
@@ -66,7 +66,7 @@ jobs:
     ignore-build-errors: false  # Don't ignore build errors (default)
   ```
 - ***skip-build***  
-  No build markers will be generated. This can greatly decrease export time <span style="color: yellow;">(warning: use of this flag is discouraged; it can cause invalid solutions to be exported)</span>  
+  No build markers will be generated. This can greatly decrease export time 🟡 (warning: use of this flag is discouraged; it can cause invalid solutions to be exported)  
   **WAR export flag:** `-sb`  
   **Default:** false
   **Examples:**
