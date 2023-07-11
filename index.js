@@ -39,6 +39,7 @@ function buildDockerRunCommand() {
 
     let commandArguments = [
         "run", "--rm",
+        "-e", `SOURCE_REPOSITORY=${process.env.GITHUB_REPOSITORY}`,
         "-v", `${process.env.GITHUB_WORKSPACE}:/servoy_code`
     ], extrasFolder = core.getInput("extras-folder");
     if (extrasFolder !== "") {
