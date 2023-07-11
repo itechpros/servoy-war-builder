@@ -105,6 +105,13 @@ function buildDockerRunCommand() {
         "services",
         "exclude-services"
     ],
+    prependWorkspacePrefixFields = [
+        "properties-file",
+        "properties-file-war",
+        "context-file-name",
+        "log4j-configuration-file",
+        "web-xml-file-name"
+    ],
     booleanFields = {
         "ignore-build-errors": "-ie",
         "skip-build": "-sb",
@@ -143,6 +150,8 @@ function buildDockerRunCommand() {
         if (~multiValueStringFields.indexOf(stringField)) {
             stringFieldValues = stringFieldValue.split(" ");
             commandArguments = commandArguments.concat(stringFieldValues);
+        } else if (~prependWorkspacePrefixFields.indexOf(stringField)) {
+            commandArguments.push(`/servoy_code/${stringFieldValue}`);
         } else {
             commandArguments.push(stringFieldValue);
         }
