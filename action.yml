@@ -1,6 +1,9 @@
 name: "Servoy WAR Builder"
 author: "Servoy Components"
 description: "A GitHub Action used to build Servoy WAR files."
+branding:
+  icon: "box"
+  color: "orange"
 inputs:
   servoy-version:
     description: "The full Servoy version to use for the build (ex. '2023.03.2.3844')"
