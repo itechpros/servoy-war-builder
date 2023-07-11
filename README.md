@@ -1,6 +1,6 @@
 # Servoy WAR Exporter
 
-This [GitHub Action](https://github.com/features/actions) allows users to build Servoy WAR files, using options from Servoy's bundled WAR export. In order to use this Action, you will need an API key from [Servoy Components](https://servoycomponents.com/components/plugins). You can purchase a license for either GitHub Actions specifically, or our all-inclusive [All Products Pack](https://servoycomponents.com/all-products-pack) license.
+This [GitHub Action](https://github.com/features/actions) allows users to build Servoy WAR files, using options from Servoy's bundled WAR export. In order to use this Action, you will need an [All Products Pack](https://servoycomponents.com/all-products-pack) API key from [Servoy Components](https://servoycomponents.com/).
 
 ## Examples
 
@@ -92,7 +92,7 @@ Coming soon!
 -  ***servoy-version*** 🔴 *required*  
    The full Servoy version to use for the build. To see a list of supported versions, please head over to [our servoy_builder package](https://github.com/itechpros/servoy-docker-github/pkgs/container/servoy_builder) to see the versions we support.
 - ***api-key*** 🔴 *required*  
-  API key obtained from the ServoyComponents website from either the [commercial license](https://servoycomponents.com/components/plugins) or the [All Products Pack](https://servoycomponents.com/all-products-pack). We recommend putting this value in [GitHub Action Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to prevent accidental exposure through the GitHub Action logs, or from unauthorized users.
+  [All Products Pack](https://servoycomponents.com/all-products-pack) API key obtained from the  [Servoy Components website](https://servoycomponents.com/). We recommend putting this value in [GitHub Action Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to prevent accidental exposure through the GitHub Action logs, or from unauthorized users.
 - ***solution-name*** 🔴 *required*  
   Name of the primary solution to export to the WAR file.  
   **WAR export flag**: `-s`  
