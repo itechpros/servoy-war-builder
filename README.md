@@ -3,6 +3,8 @@
 This [GitHub Action](https://github.com/features/actions) allows users to build Servoy WAR files, using options from Servoy's bundled WAR export. In order to use this Action, you will need an API key from [Servoy Components](https://servoycomponents.com/components/plugins). You can purchase a license for either GitHub Actions specifically, or our all-inclusive [All Products Pack](https://servoycomponents.com/all-products-pack) license.
 
 ## Examples
+
+### Bare Minimum Build
 ```yaml
 name: Servoy WAR Build
 on: push
@@ -13,12 +15,6 @@ jobs:
     steps:
      - name: Checkout                               # Checkout the repo
        uses: actions/checkout@v2
-     - name: Docker Login                           # Login to GitHub's Docker Container Registry
-       uses: docker/login-action@v2
-       with:
-         registry: ghcr.io
-         username: ${{ github.actor }}
-         password: ${{ secrets.GITHUB_TOKEN }}
      - name: Servoy WAR Build                       # Run the Servoy WAR Build
        uses: itechpros/servoy-war-builder@main
        with:
@@ -28,6 +24,68 @@ jobs:
          default-admin-user: ${{ secrets.SERVOY_DEFAULT_ADMIN_USER }}
          default-admin-password: ${{ secrets.SERVOY_DEFAULT_ADMIN_PASWORD }}
 ```
+
+### Build and upload to S3
+```yaml
+name: Servoy WAR Build - S3
+on: push
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout                               # Checkout the repo
+       uses: actions/checkout@v2
+     - name: Servoy WAR Build                       # Run the Servoy WAR Build
+       uses: itechpros/servoy-war-builder@main
+       with:
+         servoy-version: 2023.03.2.3844
+         api-key: ${{ secrets.SERVOY_COMPONENTS_API_KEY }}
+         solution-name: MySolution
+         default-admin-user: ${{ secrets.SERVOY_DEFAULT_ADMIN_USER }}
+         default-admin-password: ${{ secrets.SERVOY_DEFAULT_ADMIN_PASWORD }}
+     - name: Upload file to bucket                  # Uploads the file into Amazon S3
+       uses: koraykoska/s3-upload-github-action@master
+       env:
+         FILE: MySolution.war
+         S3_ENDPOINT: 's3.us-east-1.amazonaws.com'
+         S3_BUCKET: ${{ secrets.S3_BUCKET }}
+         S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+         S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+```
+
+### Build and upload to Microsoft Azure
+```yaml
+name: Servoy WAR Build - S3
+on: push
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout                               # Checkout the repo
+       uses: actions/checkout@v2
+     - name: Servoy WAR Build                       # Run the Servoy WAR Build
+       uses: itechpros/servoy-war-builder@main
+       with:
+         servoy-version: 2023.03.2.3844
+         api-key: ${{ secrets.SERVOY_COMPONENTS_API_KEY }}
+         solution-name: MySolution
+         default-admin-user: ${{ secrets.SERVOY_DEFAULT_ADMIN_USER }}
+         default-admin-password: ${{ secrets.SERVOY_DEFAULT_ADMIN_PASWORD }}
+     - name: Upload WAR to Azure                    # Uploads the file into Microsoft Azure
+       uses: LanceMcCarthy/Action-AzureBlobUpload@v2
+       with:
+         connection_string: ${{ secrets.AZURE_CONNECTION_STRING }}
+         container_name: war-exports
+         source_folder: MySolution.war
+         destination_folder: export
+         fail_if_source_empty: true
+         delete_if_exists: true
+```
+
+### Build and auto-deploy
+Coming soon!
 
 ## Options
 
