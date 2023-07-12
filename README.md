@@ -4,6 +4,8 @@ This [GitHub Action](https://github.com/features/actions) allows users to build 
 
 ## Examples
 
+To view a full example project, including the workflow file, please see our [examples repo](https://github.com/itechpros/servoy-war-builder-examples).
+
 ### Bare Minimum Build
 ```yaml
 name: Servoy WAR Build
