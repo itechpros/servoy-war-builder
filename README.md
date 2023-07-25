@@ -6,7 +6,7 @@ This [GitHub Action](https://github.com/features/actions) allows users to build 
 
 To view a full example project, including the workflow file, please see our [examples repo](https://github.com/itechpros/servoy-war-builder-examples).
 
-### Bare Minimum Build
+### Build the WAR
 ```yaml
 name: Servoy WAR Build
 on: push
@@ -27,7 +27,46 @@ jobs:
          default-admin-password: ${{ secrets.SERVOY_DEFAULT_ADMIN_PASWORD }}
 ```
 
-### Build and upload to S3
+### WAR + GitHub Release
+```yaml
+name: Servoy WAR Build
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout                               # Checkout the repo
+       uses: actions/checkout@v2
+     - name: Servoy WAR Build                       # Run the Servoy WAR Build
+       uses: itechpros/servoy-war-builder@v1
+       with:
+         servoy-version: 2023.03.2.3844
+         api-key: ${{ secrets.SERVOY_COMPONENTS_API_KEY }}
+         solution-name: MySolution
+         default-admin-user: ${{ secrets.SERVOY_DEFAULT_ADMIN_USER }}
+         default-admin-password: ${{ secrets.SERVOY_DEFAULT_ADMIN_PASWORD }}
+     - name: Create custom name for GitHub tag      # Create a variable to store our new tag name (current date in yyyyMMdd.HHmm format)
+       run: |
+         tag_name=$(date '+%Y%m%d.%H%M')
+         echo "CUSTOM_TAG_NAME=${tag_name}" >> $GITHUB_ENV
+     - name: Create tag for release                 # Create the tag in GitHub
+       uses: actions/github-script@v5
+       with:
+         script: |
+           github.rest.git.createRef({
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             ref: `refs/tags/${process.env.CUSTOM_TAG_NAME}`,
+             sha: context.sha
+           })
+     - name: Push release                           # Create a release based on the new tag
+       uses: softprops/action-gh-release@v1
+       with:
+         tag_name: ${{ env.CUSTOM_TAG_NAME }}
+         files: MySolution.war
+```
+
+### WAR + S3 Upload
 ```yaml
 name: Servoy WAR Build - S3
 on: push
@@ -56,7 +95,7 @@ jobs:
          S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
 ```
 
-### Build and upload to Microsoft Azure
+### WAR + Azure Upload
 ```yaml
 name: Servoy WAR Build - S3
 on: push
@@ -86,7 +125,7 @@ jobs:
          delete_if_exists: true
 ```
 
-### Build and auto-deploy
+### WAR + Auto Deploy
 Coming soon!
 
 ## Options
