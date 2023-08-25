@@ -2,6 +2,8 @@
 
 This [GitHub Action](https://github.com/features/actions) allows users to build Servoy WAR files, using options from Servoy's bundled WAR export. In order to use this Action, you will need an [All Products Pack](https://servoycomponents.com/all-products-pack) API key from [Servoy Components](https://servoycomponents.com/).
 
+See the [LICENSE](LICENSE.md) for more information on the dual licensing for commercial projects.
+
 ## Examples
 
 To view a full example project, including the workflow file, please see our [examples repo](https://github.com/itechpros/servoy-war-builder-examples).
@@ -642,3 +644,4 @@ Coming soon!
     # ...
     extras-folder: ServoyDeveloperExtras  # Use the plugins, drivers, etc. in ServoyDeveloperExtras/application_server in our export
   ```
+
