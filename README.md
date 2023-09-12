@@ -623,7 +623,7 @@ Coming soon!
   with:
     # ...
     ng1: true   # Export NG1 resources
-    ng2: false  # Don't export NG1 resources (default)
+    ng1: false  # Don't export NG1 resources (default)
   ```
 - ***licenses***  
   Space delimited licenses to include in the WAR file. Format should be '<company_name> <license code> <licenses>'. If you have multiple licenses, use multiple lines. We recommend putting the Servoy license value in [GitHub Action Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to prevent accidental exposure through the GitHub Action logs, or from unauthorized users.  
