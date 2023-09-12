@@ -66,7 +66,7 @@ function buildDockerRunCommand() {
         "-data", "/servoy_code",
         "-defaultAdminUser", defaultAdminUser,
         "-defaultAdminPassword", defaultAdminPassword,
-        "-p", propertiesFile
+        "-p", `/servoy_code/${propertiesFile}`
     ]);
 
     let stringFields = {
@@ -108,7 +108,6 @@ function buildDockerRunCommand() {
         "exclude-services"
     ],
     prependWorkspacePrefixFields = [
-        "properties-file",
         "properties-file-war",
         "context-file-name",
         "log4j-configuration-file",
