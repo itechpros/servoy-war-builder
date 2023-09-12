@@ -22,6 +22,7 @@ inputs:
     required: true
   properties-file:
     description: "Path and name of the properties file used to start the exporter"
+    required: true
   ignore-build-errors:
     description: "Ignores build errors (warning: use of this flag is discouraged; it can cause invalid solutions to be exported)"
     default: false

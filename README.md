@@ -145,7 +145,7 @@ Coming soon!
 - ***default-admin-password*** 🔴 *required*  
   Default admin password to include in the WAR file. We recommend putting this value in [GitHub Action Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to prevent accidental exposure through the GitHub Action logs, or from unauthorized users.  
   **WAR export flag**: `-defaultAdminPassword`
-- ***properties-file***  
+- ***properties-file*** 🔴 *required*  
   Path and name of the properties file used to start the exporter. Path should be relative to the root directory of your GitHub repository.  
   **WAR export flag**: `-p`  
   **Examples:**
@@ -189,7 +189,7 @@ Coming soon!
     dbi: false  # Don't export based on DBI files (default)
   ```
 - ***properties-file-war***  
-  Path and name of the properties file to be included in the WAR. Path should be relative to the root directory of your GitHub repository.  
+  Path and name of the properties file to be included in the WAR. Path should be relative to the root directory of your GitHub repository. **If a WAR property file is not supplied, we will use the property file specified in `properties-file`.**  
   **WAR export flag:** `-pfw`  
   **Examples:**
   ```yaml

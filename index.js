@@ -35,7 +35,8 @@ function buildDockerRunCommand() {
           apiKey = core.getInput("api-key"),
           solutionName = core.getInput("solution-name"),
           defaultAdminUser = core.getInput("default-admin-user"),
-          defaultAdminPassword = core.getInput("default-admin-password");
+          defaultAdminPassword = core.getInput("default-admin-password"),
+          propertiesFile = core.getInput("properties-file");
 
     let commandArguments = [
         "run", "--rm",
@@ -64,11 +65,11 @@ function buildDockerRunCommand() {
         "-o", "/servoy_code",
         "-data", "/servoy_code",
         "-defaultAdminUser", defaultAdminUser,
-        "-defaultAdminPassword", defaultAdminPassword
+        "-defaultAdminPassword", defaultAdminPassword,
+        "-p", propertiesFile
     ]);
 
     let stringFields = {
-        "properties-file": "-p",
         "properties-file-war": "-pfw",
         "beans": "-b",
         "exclude-beans": "-excludeBeans",
@@ -141,6 +142,9 @@ function buildDockerRunCommand() {
     Object.keys(stringFields).forEach((stringField) => {
         let stringFieldValue = core.getInput(stringField),
             stringFieldValues;
+
+        if (stringField === "properties-file-war" && stringFieldValue === "")
+            stringFieldValue = propertiesFile;
 
         if (stringFieldValue === "") return;
 
