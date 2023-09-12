@@ -146,7 +146,8 @@ function buildDockerRunCommand() {
 
         commandArguments.push(stringFields[stringField]);
 
-        if (stringField === "allow-data-model-changes" && stringFieldValue === "all") return;
+        if (stringField === "allow-data-model-changes" && stringFieldValue === "all")
+            stringFieldValue = "true";
 
         if (~multiValueStringFields.indexOf(stringField)) {
             stringFieldValues = stringFieldValue.split(" ");
