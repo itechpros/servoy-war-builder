@@ -253,6 +253,9 @@ function runPropertiesThroughEnvPlate(propertiesFile, warPropertiesFile) {
         process.exit();
     }
 
+    // Make envplate executable
+    fs.chmodSync(envplatePath, "777");
+
     if (!~[null, undefined, ""].indexOf(propertiesFile) && fs.existsSync(propertiesFilePath)) {
         const propEnvPlateProcess = childProcess.spawnSync(
             envplatePath, [propertiesFilePath],
