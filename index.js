@@ -263,8 +263,10 @@ function runPropertiesThroughEnvPlate(propertiesFile, warPropertiesFile) {
         );
         if (propEnvPlateProcess.status === null || propEnvPlateProcess.status !== 0) {
             core.info(`envplate return code: ${propEnvPlateProcess.status}`);
+            core.info(`envplate signal code: ${propEnvPlateProcess.signal}`);
             core.info(`envplate stdout: ${propEnvPlateProcess.stdout}`);
             core.info(`envplate stderr: ${propEnvPlateProcess.stderr}`);
+            core.info(`envplate error: ${propEnvPlateProcess.error}`);
             core.setFailed(`Failed to run envplate on properties file: ${propertiesFilePath}`);
             process.exit();
         }
@@ -280,8 +282,10 @@ function runPropertiesThroughEnvPlate(propertiesFile, warPropertiesFile) {
         );
         if (warPropEnvPlateProcess.status === null || warPropEnvPlateProcess.status !== 0) {
             core.info(`envplate return code: ${warPropEnvPlateProcess.status}`);
+            core.info(`envplate signal code: ${warPropEnvPlateProcess.signal}`);
             core.info(`envplate stdout: ${warPropEnvPlateProcess.stdout}`);
             core.info(`envplate stderr: ${warPropEnvPlateProcess.stderr}`);
+            core.info(`envplate error: ${warPropEnvPlateProcess.error}`);
             core.setFailed(`Failed to run envplate on properties file: ${warPropertiesFilePath}`);
             process.exit();
         }
