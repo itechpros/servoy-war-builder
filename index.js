@@ -3,16 +3,22 @@
 const core = require("@actions/core");
 const childProcess = require("child_process");
 const fs = require("fs");
+const path = require("path");
 
 try {
     // Check to make sure the requested Servoy version exists in our GitHub Container Registry
-    const servoyVersion = core.getInput("servoy-version");
+    const servoyVersion = core.getInput("servoy-version"),
+          propertiesFile = core.getInput("properties-file"),
+          warPropertiesFile = core.getInput("properties-file-war");
     verifyServoyImage(servoyVersion);
 
     // Build our command before we pull down the Docker image, so the user doesn't have to wait until the download completes
     // before they know something trivial is wrong.
     let commandArguments = buildDockerRunCommand();
     
+    // Run their properties file(s) through envplate.
+    runPropertiesThroughEnvPlate(propertiesFile, warPropertiesFile);
+
     // Pull down the Docker image
     downloadServoyImage(servoyVersion);
 
@@ -234,5 +240,40 @@ function downloadServoyImage(servoyVersion) {
     if (pullProcess.status === null || pullProcess.status !== 0) {
         core.setFailed(`Download of WAR builder failed for Servoy version: ${servoyVersion}`);
         process.exit();
+    }
+}
+
+function runPropertiesThroughEnvPlate(propertiesFile, warPropertiesFile) {
+    let envplatePath = path.join(__dirname, "envplate"),
+        propertiesFilePath = path.join(process.env.GITHUB_WORKSPACE, propertiesFile),
+        warPropertiesFilePath = path.join(process.env.GITHUB_WORKSPACE, warPropertiesFile);
+    core.info(`Using envplate path: ${envplatePath}`);
+
+    if (!~[null, undefined, ""].indexOf(propertiesFile) && fs.existsSync(propertiesFilePath)) {
+        const propEnvPlateProcess = childProcess.spawnSync(
+            envplatePath, [propertiesFilePath],
+            {
+                stdio: "inherit",
+                env: process.env
+            }
+        );
+        if (propEnvPlateProcess.status === null || propEnvPlateProcess.status !== 0) {
+            core.setFailed(`Failed to run envplate on properties file: ${propertiesFilePath}`);
+            process.exit();
+        }
+    }
+
+    if (!~[null, undefined, ""].indexOf(warPropertiesFile) && fs.existsSync(warPropertiesFilePath) && propertiesFile !== warPropertiesFile) {
+        const warPropEnvPlateProcess = childProcess.spawnSync(
+            envplatePath, [warPropertiesFilePath],
+            {
+                stdio: "inherit",
+                env: process.env
+            }
+        );
+        if (warPropEnvPlateProcess.status === null || warPropEnvPlateProcess.status !== 0) {
+            core.setFailed(`Failed to run envplate on properties file: ${warPropertiesFilePath}`);
+            process.exit();
+        }
     }
 }
