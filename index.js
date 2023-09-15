@@ -248,6 +248,10 @@ function runPropertiesThroughEnvPlate(propertiesFile, warPropertiesFile) {
         propertiesFilePath = path.join(process.env.GITHUB_WORKSPACE, propertiesFile),
         warPropertiesFilePath = path.join(process.env.GITHUB_WORKSPACE, warPropertiesFile);
     core.info(`Using envplate path: ${envplatePath}`);
+    if (!fs.existsSync(envplatePath)) {
+        core.setFailed(`envplate executable does not exist at: ${envplatePath}`);
+        process.exit();
+    }
 
     if (!~[null, undefined, ""].indexOf(propertiesFile) && fs.existsSync(propertiesFilePath)) {
         const propEnvPlateProcess = childProcess.spawnSync(
