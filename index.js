@@ -257,6 +257,7 @@ function runPropertiesThroughEnvPlate(propertiesFile, warPropertiesFile) {
     fs.chmodSync(envplatePath, "777");
 
     if (!~[null, undefined, ""].indexOf(propertiesFile) && fs.existsSync(propertiesFilePath)) {
+        core.info(`Running envplate on properties file: ${propertiesFile}`);
         const propEnvPlateProcess = childProcess.spawnSync(
             envplatePath, [propertiesFilePath],
             {
@@ -276,6 +277,7 @@ function runPropertiesThroughEnvPlate(propertiesFile, warPropertiesFile) {
     }
 
     if (!~[null, undefined, ""].indexOf(warPropertiesFile) && fs.existsSync(warPropertiesFilePath) && propertiesFile !== warPropertiesFile) {
+        core.info(`Running envplate on properties file: ${warPropertiesFile}`);
         const warPropEnvPlateProcess = childProcess.spawnSync(
             envplatePath, [warPropertiesFilePath],
             {
