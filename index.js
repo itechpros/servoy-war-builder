@@ -253,11 +253,14 @@ function runPropertiesThroughEnvPlate(propertiesFile, warPropertiesFile) {
         const propEnvPlateProcess = childProcess.spawnSync(
             envplatePath, [propertiesFilePath],
             {
-                stdio: "inherit",
+                encoding: "utf-8",
                 env: process.env
             }
         );
         if (propEnvPlateProcess.status === null || propEnvPlateProcess.status !== 0) {
+            core.info(`envplate return code: ${propEnvPlateProcess.statuts}`);
+            core.info(`envplate stdout: ${propEnvPlateProcess.stdout}`);
+            core.info(`envplate stderr: ${propEnvPlateProcess.stderr}`);
             core.setFailed(`Failed to run envplate on properties file: ${propertiesFilePath}`);
             process.exit();
         }
@@ -267,11 +270,14 @@ function runPropertiesThroughEnvPlate(propertiesFile, warPropertiesFile) {
         const warPropEnvPlateProcess = childProcess.spawnSync(
             envplatePath, [warPropertiesFilePath],
             {
-                stdio: "inherit",
+                encoding: "utf-8",
                 env: process.env
             }
         );
         if (warPropEnvPlateProcess.status === null || warPropEnvPlateProcess.status !== 0) {
+            core.info(`envplate return code: ${warPropEnvPlateProcess.statuts}`);
+            core.info(`envplate stdout: ${warPropEnvPlateProcess.stdout}`);
+            core.info(`envplate stderr: ${warPropEnvPlateProcess.stderr}`);
             core.setFailed(`Failed to run envplate on properties file: ${warPropertiesFilePath}`);
             process.exit();
         }
