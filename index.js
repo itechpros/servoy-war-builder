@@ -37,7 +37,7 @@ try {
             timeout: buildTimeout
         }
     );
-    if (!~[null, undefined].indexOf(dockerRunProcess.error) && ~dockerRunProcess.indexOf("ETIMEDOUT")) {
+    if (!~[null, undefined].indexOf(dockerRunProcess.error) && ~dockerRunProcess.error.indexOf("ETIMEDOUT")) {
         core.setFailed("Build timeout exceeded. Build failed.");
         process.exit();
     } else if (dockerRunProcess.status !== 0) {
