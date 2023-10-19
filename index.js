@@ -37,13 +37,10 @@ try {
             timeout: buildTimeout
         }
     );
-    if (dockerRunProcess.status !== 0) {
-        core.info(`Docker run return code: ${dockerRunProcess.status}`);
-        core.info(`Docker run signal code: ${dockerRunProcess.signal}`);
-        core.info(`Docker run stdout: ${dockerRunProcess.stdout}`);
-        core.info(`Docker run stderr: ${dockerRunProcess.stderr}`);
-        core.info(`Docker run error: ${dockerRunProcess.error}`);
-
+    if (!~[null, undefined].indexOf(dockerRunProcess.error) && ~dockerRunProcess.indexOf("ETIMEDOUT")) {
+        core.setFailed("Build timeout exceeded. Build failed.");
+        process.exit();
+    } else if (dockerRunProcess.status !== 0) {
         core.setFailed("WAR build failed. Please check the logs for more details.");
         process.exit();
     }
