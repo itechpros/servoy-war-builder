@@ -9,7 +9,14 @@ try {
     // Check to make sure the requested Servoy version exists in our GitHub Container Registry
     const servoyVersion = core.getInput("servoy-version"),
           propertiesFile = core.getInput("properties-file"),
-          warPropertiesFile = core.getInput("properties-file-war");
+          warPropertiesFile = core.getInput("properties-file-war"),
+          buildTimeout = parseInt(core.getInput("timeout"), 10);
+    
+    if (isNaN(buildTimeout) || buildTimeout < 0) {
+        core.setFailed(`Invalid build timeout ${buildTimeout}. Must be a positive integer.`);
+        process.exit();
+    }
+
     verifyServoyImage(servoyVersion);
 
     // Build our command before we pull down the Docker image, so the user doesn't have to wait until the download completes
@@ -25,7 +32,10 @@ try {
     // Our command is now ready. Let 'er rip.
     const dockerRunProcess = childProcess.spawnSync(
         "docker", commandArguments,
-        { stdio: "inherit" }
+        {
+            stdio: "inherit",
+            timeout: buildTimeout
+        }
     );
     if (dockerRunProcess.status !== 0) {
         core.setFailed("WAR build failed. Please check the logs for more details.");
@@ -221,7 +231,7 @@ function splitLicenseParts(license) {
         resultArray = [],
         match;
     
-        do {
+    do {
         match = licenseRegexp.exec(license);
         if (match != null)
             resultArray.push(match[1] ? match[1] : match[0]);

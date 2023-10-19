@@ -142,6 +142,9 @@ inputs:
     description: "Space delimited licenses to include in the WAR file. Format should be '<company_name> <code> <licenses>'. If you have multiple licenses, use multiple lines."
   extras-folder:
     description: "Path to the extras folder that contains additional plugins, drivers, etc. that should be included in the Servoy install."
+  timeout:
+    description: "Timeout in milliseconds for the Servoy build process (default 30 minutes)"
+    default: 1800000
 runs:
   using: 'node16'
   main: 'index.js'

@@ -644,4 +644,13 @@ Coming soon!
     # ...
     extras-folder: ServoyDeveloperExtras  # Use the plugins, drivers, etc. in ServoyDeveloperExtras/application_server in our export
   ```
-
+- ***timeout***  
+  Number of milliseconds to allow the build process to run before terminating it. Defaults to 30 minutes.  
+  **Examples:**
+  ```yaml
+  with:
+    # ...
+    timeout: 600000   # 10 minute timeout
+    timeout: 1800000  # 30 minute timeout
+    timeout: 3600000  # 1 hour timeout
+  ```
