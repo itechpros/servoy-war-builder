@@ -27,6 +27,7 @@ jobs:
          solution-name: MySolution
          default-admin-user: ${{ secrets.SERVOY_DEFAULT_ADMIN_USER }}
          default-admin-password: ${{ secrets.SERVOY_DEFAULT_ADMIN_PASWORD }}
+         properties-file: prop_files/servoy.build.properties
 ```
 
 ### WAR + GitHub Release
@@ -47,6 +48,7 @@ jobs:
          solution-name: MySolution
          default-admin-user: ${{ secrets.SERVOY_DEFAULT_ADMIN_USER }}
          default-admin-password: ${{ secrets.SERVOY_DEFAULT_ADMIN_PASWORD }}
+         properties-file: prop_files/servoy.build.properties
      - name: Create custom name for GitHub tag      # Create a variable to store our new tag name (current date in yyyyMMdd.HHmm format)
        run: |
          tag_name=$(date '+%Y%m%d.%H%M')
@@ -87,6 +89,7 @@ jobs:
          solution-name: MySolution
          default-admin-user: ${{ secrets.SERVOY_DEFAULT_ADMIN_USER }}
          default-admin-password: ${{ secrets.SERVOY_DEFAULT_ADMIN_PASWORD }}
+         properties-file: prop_files/servoy.build.properties
      - name: Upload file to bucket                  # Uploads the file into Amazon S3
        uses: koraykoska/s3-upload-github-action@master
        env:
@@ -116,6 +119,7 @@ jobs:
          solution-name: MySolution
          default-admin-user: ${{ secrets.SERVOY_DEFAULT_ADMIN_USER }}
          default-admin-password: ${{ secrets.SERVOY_DEFAULT_ADMIN_PASWORD }}
+         properties-file: prop_files/servoy.build.properties
      - name: Upload WAR to Azure                    # Uploads the file into Microsoft Azure
        uses: LanceMcCarthy/Action-AzureBlobUpload@v2
        with:
