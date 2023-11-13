@@ -486,7 +486,7 @@ Coming soon!
   with:
     # ...
     override-default-values: true   # Overrides the column default values in the Servoy repository database with the default values in the export
-    override-sequence-types: false  # Doesn't override the default values in the Servoy repository database (default)
+    override-default-values: false  # Doesn't override the default values in the Servoy repository database (default)
   ```
 - ***insert-new-i18n-keys-only***  
   Inserts new i18n keys only  
