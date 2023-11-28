@@ -145,6 +145,8 @@ inputs:
   timeout:
     description: "Timeout in milliseconds for the Servoy build process (default 30 minutes)"
     default: 1800000
+  post-war-extras-folder:
+    description: "Path to the extras folder that contains files that should be inserted into the WAR after it is built."
 runs:
   using: 'node16'
   main: 'index.js'

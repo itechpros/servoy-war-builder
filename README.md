@@ -658,3 +658,11 @@ Coming soon!
     timeout: 1800000  # 30 minute timeout
     timeout: 3600000  # 1 hour timeout
   ```
+- ***post-war-extras-folder***  
+  Path to the extras folder that contains files that should be copied into the WAR after it's built. Path should be relative to the root directory of your GitHub repository.  
+  **Examples:**
+  ```yaml
+  with:
+    # ...
+    post-war-extras-folder: PostWarExtras  # Include the files & folders in PostWarExtras/ in our WAR
+  ```

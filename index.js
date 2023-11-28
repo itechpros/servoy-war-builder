@@ -61,7 +61,8 @@ function buildDockerRunCommand() {
         "run", "--rm",
         "-e", `SOURCE_REPOSITORY=${process.env.GITHUB_REPOSITORY}`,
         "-v", `${process.env.GITHUB_WORKSPACE}:/servoy_code`
-    ], extrasFolder = core.getInput("extras-folder");
+    ], extrasFolder = core.getInput("extras-folder"),
+       postWarExtrasFolder = core.getInput("post-war-extras-folder");
     if (extrasFolder !== "") {
         let extrasFolderFullPath = `${process.env.GITHUB_WORKSPACE}/${extrasFolder}`;
 
@@ -74,6 +75,18 @@ function buildDockerRunCommand() {
             process.exit();
         } else {
             commandArguments = commandArguments.concat(["-v", `${extrasFolderFullPath}:/servoy_extras`]);
+        }
+    }
+    
+    if (postWarExtrasFolder !== "") {
+        let postWarExtrasFolderFullPath = `${process.env.GITHUB_WORKSPACE}/${postWarExtrasFolder}`;
+
+        // Make sure the post-WAR extras folder exists.
+        if (!fs.existsSync(postWarExtrasFolderFullPath)) {
+            core.setFailed(`Post-WAR extras folder ${postWarExtrasFolder} does not exist.`);
+            process.exit();
+        } else {
+            commandArguments = commandArguments.concat(["-v", `${postWarExtrasFolderFullPath}:/post_war_extras`]);
         }
     }
 
