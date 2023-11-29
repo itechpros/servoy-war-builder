@@ -137,7 +137,7 @@ Coming soon!
 ## Options
 
 -  ***servoy-version*** 🔴 *required*  
-   The full Servoy version to use for the build. To see a list of supported versions, please head over to [our servoy_builder package](https://github.com/itechpros/servoy-docker-github/pkgs/container/servoy_builder) to see the versions we support.
+   The full Servoy version to use for the build. To see a list of supported versions, please [click here](#supported-servoy-versions).
 - ***api-key*** 🔴 *required*  
   [All Products Pack](https://servoycomponents.com/all-products-pack) API key obtained from the  [Servoy Components website](https://servoycomponents.com/). We recommend putting this value in [GitHub Action Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to prevent accidental exposure through the GitHub Action logs, or from unauthorized users.
 - ***solution-name*** 🔴 *required*  
@@ -666,3 +666,92 @@ Coming soon!
     # ...
     post-war-extras-folder: PostWarExtras  # Include the files & folders in PostWarExtras/ in our WAR
   ```
+
+# Supported Servoy Versions
+## Servoy 6
+- 6.1.0.1418
+- 6.1.1.1420
+- 6.1.2.1421
+- 6.1.3.1424
+- 6.1.4.1429
+- 6.1.5.1433
+- 6.1.6.1439
+## Servoy 7
+- 7.2.0.2013
+- 7.3.0.2018
+- 7.3.1.2022
+- 7.4.0.2026
+- 7.4.1.2028
+- 7.4.2.2033
+- 7.4.3.2036
+- 7.4.4.2039
+- 7.4.5.2041
+- 7.4.6.2043
+- 7.4.7.2045
+- 7.4.8.2046
+- 7.4.9.2047
+- 7.4.10.2049
+## Servoy 8
+- 8.0.0.3020
+- 8.1.0.3027
+- 8.1.1.3029
+- 8.1.2.3031
+- 8.1.3.3033
+- 8.1.4.3035
+- 8.2.0.3103
+- 8.2.1.3105
+- 8.2.2.3107
+- 8.2.3.3109
+- 8.3.1.3205
+- 8.3.2.3207
+- 8.3.3.3209
+- 8.4.0.3402
+## Servoy 2019
+- 2019.03.3412
+- 2019.06.1.3503
+- 2019.06.2.3504
+- 2019.09.3522
+- 2019.12.3542
+- 2019.12.1.3543
+## Servoy 2020
+- 2020.03.3562
+- 2020.03.1.3563
+- 2020.03.2.3564
+- 2020.03.3.3565
+- 2020.06.3582
+- 2020.06.1.3583
+- 2020.09.3602
+- 2020.12.3622
+- 2020.12.1.3623
+## Servoy 2021
+- 2021.03.3642
+- 2021.03.1.3643
+- 2021.03.2.3644
+- 2021.03.3.3645
+- 2021.06.3683
+- 2021.09.3703
+- 2021.12.3722
+- 2021.12.1.3723
+- 2021.12.2.3724
+## Servoy 2022
+- 2022.03.3742
+- 2022.03.1.3743
+- 2022.03.2.3744
+- 2022.03.3.3745
+- 2022.03.4.3746
+- 2022.03.5.3747
+- 2022.06.3782
+- 2022.09.3803
+- 2022.09.1.3804
+- 2022.09.2.3805
+- 2022.12.0.3823
+- 2022.12.1.3824
+## Servoy 2023
+- 2023.03.3842
+- 2023.03.1.3843
+- 2023.03.2.3844
+- 2023.03.3.3845
+- 2023.06.3883
+- 2023.09.3902
+- 2023.09.1.3903
+
