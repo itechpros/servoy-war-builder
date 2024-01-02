@@ -666,6 +666,15 @@ Coming soon!
     # ...
     post-war-extras-folder: PostWarExtras  # Include the files & folders in PostWarExtras/ in our WAR
   ```
+- ***build-max-memory***  
+  Maximum amount of memory that can be consumed by the build process. Defaults to 2 GB.  
+  **Examples:**
+  ```yaml
+  with:
+    # ...
+    build-max-memory: 2048m  # Allow a maximum of 2GB of memory to be consumed during WAR build
+    build-max-memory: 4096m  # Allow a maximum of 4GB of memory to be consumed during WAR build
+  ```
 
 # Supported Servoy Versions
 ## Servoy 6

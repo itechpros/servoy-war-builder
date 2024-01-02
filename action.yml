@@ -147,6 +147,9 @@ inputs:
     default: 1800000
   post-war-extras-folder:
     description: "Path to the extras folder that contains files that should be inserted into the WAR after it is built."
+  build-max-memory:
+    description: "Maximum amount of memory that can be consumed by the build process."
+    default: 2048m
 runs:
   using: 'node16'
   main: 'index.js'

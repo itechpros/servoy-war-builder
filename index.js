@@ -55,7 +55,8 @@ function buildDockerRunCommand() {
           solutionName = core.getInput("solution-name"),
           defaultAdminUser = core.getInput("default-admin-user"),
           defaultAdminPassword = core.getInput("default-admin-password"),
-          propertiesFile = core.getInput("properties-file");
+          propertiesFile = core.getInput("properties-file"),
+          buildMaxMemory = core.getInput("build-max-memory");
 
     let commandArguments = [
         "run", "--rm",
@@ -98,7 +99,8 @@ function buildDockerRunCommand() {
         "-data", "/servoy_code",
         "-defaultAdminUser", defaultAdminUser,
         "-defaultAdminPassword", defaultAdminPassword,
-        "-p", `/servoy_code/${propertiesFile}`
+        "-p", `/servoy_code/${propertiesFile}`,
+        "--max-memory", buildMaxMemory
     ]);
 
     let stringFields = {
