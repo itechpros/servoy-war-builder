@@ -222,7 +222,7 @@ function verifyServoyImage(servoyVersion) {
     core.info(`Checking for existence of WAR builder for Servoy version: ${servoyVersion}`);
 
     // Make sure the provided Servoy version number matches the version format (prevent command injection)
-    let servoyVersionFormat = /^\d{4}\.\d{2}(\.\d+)?\.\d{4}$/;
+    let servoyVersionFormat = /^\d{1,4}\.\d{1,2}(\.\d+)?\.\d{4}$/;
     if (!servoyVersionFormat.test(servoyVersion)) {
         core.setFailed(`Invalid Servoy version: ${servoyVersion}`);
         process.exit();
