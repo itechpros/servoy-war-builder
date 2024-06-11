@@ -585,8 +585,8 @@ Coming soon!
   ```yaml
   with:
     # ...
-    overwrite-all-properties: Overwrite all Servoy server properties based on the properties file included in this import
-    overwrite-all-properties: Don't overwrite any Servoy server properties (default)
+    overwrite-all-properties: true   # Overwrite all Servoy server properties based on the properties file included in this import
+    overwrite-all-properties: false  # Don't overwrite any Servoy server properties (default)
   ```
 - ***log4j-configuration-file***  
   A path to a Log4J configuration file that should be included instead of the default one. Path should be relative to the root directory of your GitHub repository.  
