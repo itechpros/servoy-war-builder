@@ -36,11 +36,11 @@ try {
         if (!~[null, undefined, ""].indexOf(buildOutput)) {
             let { errorLines, warningLines } = extractErrorWarningLines(buildOutput);
             if (errorLines.length > 0) {
-                let errorLinesString = errorLines.join("\\n");
+                let errorLinesString = errorLines.join("\\n").replace(/\"/g, '\\"');
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `ERROR_OUTPUT=${errorLinesString}\n`);
             }
             if (warningLines.length > 0) {
-                let warningLinesString = warningLines.join("\\n");
+                let warningLinesString = warningLines.join("\\n").replace(/\"/g, '\\"');
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `WARNING_OUTPUT=${warningLinesString}\n`);
             }
         }
