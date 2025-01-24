@@ -363,11 +363,10 @@ function extractErrorWarningLines(buildOutput) {
         if (outputLine.startsWith("Found error markers in solution")) {
             capturingErrors = true;
         } else if (outputLine.startsWith("Found warning markers in projects for solution")) {
+            capturingErrors = false;
             capturingWarnings = true;
         } else if (capturingErrors && outputLine.startsWith("-")) {
             errorLines.push(outputLine);
-        } else if (capturingErrors && !outputLine.startsWith("-")) {
-            capturingErrors = false;
         } else if (capturingWarnings && outputLine.startsWith("-")) {
             warningLines.push(outputLine);
         }
