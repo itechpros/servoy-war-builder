@@ -333,9 +333,10 @@ function runDockerCommand(commandArguments, buildTimeout) {
         // Our command is now ready. Let 'er rip.
         let dockerRunOutput = "";
         const dockerRunProcess = childProcess.spawn("docker", commandArguments, {timeout: buildTimeout});
+        dockerRunProcess.stdout.setEncoding("utf-8");
         dockerRunProcess.stdout.on("data", (data) => {
             if (~[null, undefined, ""].indexOf(data)) return;
-            
+
             dockerRunOutput += data.toString();
             process.stdout.write(data);
         });
