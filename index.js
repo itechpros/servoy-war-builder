@@ -37,11 +37,11 @@ try {
             let { errorLines, warningLines } = extractErrorWarningLines(buildOutput);
             if (errorLines.length > 0) {
                 let errorLinesString = errorLines.join("\\n");
-                childProcess.exec(`echo "ERROR_OUTPUT=${errorLinesString}" >> $GITHUB_OUTPUT`);
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `ERROR_OUTPUT=${errorLinesString}\n`);
             }
             if (warningLines.length > 0) {
                 let warningLinesString = warningLines.join("\\n");
-                childProcess.exec(`echo "WARNING_OUTPUT=${warningLinesString}" >> $GITHUB_OUTPUT`);
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `WARNING_OUTPUT=${warningLinesString}\n`);
             }
         }
         core.setFailed(failMessage);
