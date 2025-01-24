@@ -25,13 +25,13 @@ inputs:
     required: true
   ignore-build-errors:
     description: "Ignores build errors (warning: use of this flag is discouraged; it can cause invalid solutions to be exported)"
-    default: false
+    default: "false"
   skip-build:
     description: "No build markers will be generated. This can greatly decrease export time (warning: use of this flag is discouraged; it can cause invalid solutions to be exported)"
-    default: false
+    default: "false"
   dbi:
     description: "Export based on DBI files (even if database servers are available)"
-    default: false
+    default: "false"
   properties-file-war:
     description: "Path and name of the properties file to be included in the WAR"
   beans:
@@ -64,71 +64,71 @@ inputs:
     description: "Space separated list of services to be excluded from the export"
   export-metadata:
     description: "Export metadata tables"
-    default: false
+    default: "false"
   check-metadata:
     description: "Check that metadata for metadata tables is the same for each table, both in the according workspace file and in the actual table in the database before exporting"
-    default: false
+    default: "false"
   sample-data:
     description: "Export sample data"
-    default: false
+    default: "false"
   sample-data-row-count:
     description: "Number of rows of sample data to export per table"
   i18n:
     description: "Export i18n data"
-    default: false
+    default: "false"
   users:
     description: "Exports users"
-    default: false
+    default: "false"
   tables:
     description: "Export all table information about tables from referenced servers"
-    default: false
+    default: "false"
   war-file-name:
     description: "The name of the WAR file"
   overwrite-groups:
     description: "Overwrites groups"
-    default: false
+    default: "false"
   allow-sql-keywords:
     description: "Allows SQL keywords"
-    default: false
+    default: "false"
   stop-on-data-model-changes:
     description: "Stops import if the data model changes"
-    default: false
+    default: "false"
   allow-data-model-changes:
     description: "A space separated list of server names that allow data model changes. If the list is missing, then data model changes are allowed on all servers"
   skip-database-views-update:
     description: "Skips database views update"
-    default: false
+    default: "false"
   override-sequence-types:
     description: "Overrides sequence types"
-    default: false
+    default: "false"
   override-default-values:
     description: "Overrides default values"
-    default: false
+    default: "false"
   insert-new-i18n-keys-only:
     description: "Inserts new i18n keys only"
-    default: false
+    default: "false"
   import-user-policy:
     description: "0 = don't, 1 = create users & update groups, 2 = overwrite completely"
   add-users-to-admin-group:
     description: "Adds users to admin group"
-    default: false
+    default: "false"
   update-sequences:
     description: "Updates sequences"
-    default: false
+    default: "false"
   upgrade-repository:
     description: "Automatically upgrade repository if needed"
-    default: false
+    default: "false"
   context-file-name:
     description: "Path to a Tomcat context.xml that should be included into the WAR/META-INF/context.xml"
   use-as-real-admin-user:
     description: "The default user login will be available as a normal admin user in the solutions as well"
-    default: false
+    default: "false"
   do-not-overwrite-db-server-properties:
     description: "SKIP overwrite of old DB server properties"
-    default: false
+    default: "false"
   overwrite-all-properties:
     description: "Overwrite all (potentially changed via admin page) properties of a previously deployed WAR application with the values from the servoy.properties of this WAR export"
-    default: false
+    default: "false"
   log4j-configuration-file:
     description: "A path to a Log4J configuration file that should be included instead of the default one"
   web-xml-file-name:
@@ -137,19 +137,19 @@ inputs:
     description: "Export Titanium NG2 binaries. If 'sourcemaps' is given, sourcemaps will be generated for .ts files - useful for debugging"
   ng1:
     description: "Export NG1 client resources"
-    default: false
+    default: "false"
   licenses:
     description: "Space delimited licenses to include in the WAR file. Format should be '<company_name> <code> <licenses>'. If you have multiple licenses, use multiple lines."
   extras-folder:
     description: "Path to the extras folder that contains additional plugins, drivers, etc. that should be included in the Servoy install."
   timeout:
     description: "Timeout in milliseconds for the Servoy build process (default 30 minutes)"
-    default: 1800000
+    default: "1800000"
   post-war-extras-folder:
     description: "Path to the extras folder that contains files that should be inserted into the WAR after it is built."
   build-max-memory:
     description: "Maximum amount of memory that can be consumed by the build process."
-    default: 2048m
+    default: "2048m"
 runs:
   using: 'node16'
   main: 'index.js'
