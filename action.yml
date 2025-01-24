@@ -151,6 +151,6 @@ inputs:
     description: "Maximum amount of memory that can be consumed by the build process."
     default: "2048m"
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'index.js'
   post: 'cleanup.js'
