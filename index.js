@@ -30,20 +30,23 @@ try {
     downloadServoyImage(servoyVersion);
 
     // Our command is now ready. Let 'er rip.
-    const dockerRunProcess = childProcess.spawnSync(
-        "docker", commandArguments,
-        {
-            stdio: "inherit",
-            timeout: buildTimeout
+    runDockerCommand(commandArguments, buildTimeout).catch((info) => {
+        let buildOutput = info[0],
+            failMessage = info[1];
+        if (!~[null, undefined, ""].indexOf(buildOutput)) {
+            let { errorLines, warningLines } = extractErrorWarningLines(buildOutput);
+            if (errorLines.length > 0) {
+                let errorLinesString = errorLines.join("\\n");
+                childProcess.exec(`echo "ERROR_OUTPUT=${errorLinesString}" >> $GITHUB_OUTPUT`);
+            }
+            if (warningLines.length > 0) {
+                let warningLinesString = warningLines.join("\\n");
+                childProcess.exec(`echo "WARNING_OUTPUT=${warningLinesString}" >> $GITHUB_OUTPUT`);
+            }
         }
-    );
-    if (!~[null, undefined].indexOf(dockerRunProcess.error) && ~dockerRunProcess.error.message.indexOf("ETIMEDOUT")) {
-        core.setFailed("Build timeout exceeded. Build failed.");
+        core.setFailed(failMessage);
         process.exit();
-    } else if (dockerRunProcess.status !== 0) {
-        core.setFailed("WAR build failed. Please check the logs for more details.");
-        process.exit();
-    }
+    });
 } catch (e) {
     core.setFailed(e.message);
 }
@@ -323,4 +326,51 @@ function runPropertiesThroughEnvPlate(propertiesFile, warPropertiesFile) {
             process.exit();
         }
     }
+}
+
+function runDockerCommand(commandArguments, buildTimeout) {
+    return new Promise((res, rej) => {
+        // Our command is now ready. Let 'er rip.
+        let dockerRunOutput = "";
+        const dockerRunProcess = childProcess.spawn("docker", commandArguments, {timeout: buildTimeout});
+        dockerRunProcess.stdout.on("data", (data) => {
+            dockerRunOutput += data;
+            process.stdout.write(data);
+        });
+        dockerRunProcess.on("close", (code) => {
+            if (!~[null, undefined].indexOf(dockerRunProcess.error) && ~dockerRunProcess.error.message.indexOf("ETIMEDOUT")) {
+                rej([null, "Build timeout exceeded. Build failed."]);
+            } else if (code !== 0) {
+                rej([dockerRunOutput, "WAR build failed. Please check the logs for more details."]);
+            } else {
+                res();
+            }
+        });
+    });
+}
+
+function extractErrorWarningLines(buildOutput) {
+    let outputLines = buildOutput.split("\n").map((val) => val.trim()),
+        errorLines = [],
+        warningLines = [],
+        capturingErrors = false,
+        capturingWarnings = false;
+    for (let i = 0; i < outputLines.length; i++) {
+        let outputLine = outputLines[i];
+        if (outputLine.startsWith("Found error markers in solution")) {
+            capturingErrors = true;
+        } else if (outputLine.startsWith("Found warning markers in projects for solution")) {
+            capturingWarnings = true;
+        } else if (capturingErrors && outputLine.startsWith("-")) {
+            errorLines.push(outputLine);
+        } else if (capturingErrors && !outputLine.startsWith("-")) {
+            capturingErrors = false;
+        } else if (capturingWarnings && outputLine.startsWith("-")) {
+            warningLines.push(outputLine);
+        }
+    }
+    return {
+        errorLines,
+        warningLines
+    };
 }
