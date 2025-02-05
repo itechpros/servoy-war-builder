@@ -162,6 +162,10 @@ inputs:
   warnings-no-escape-quotes:
     description: "Don't escape quotes in warning output."
     default: "false"
+  extras-folder-ignore:
+    description: "Path to a newline-delimited list of glob file paths to exclude while copying files from the extras folder."
+  post-war-extras-folder-ignore:
+    description: "Path to a newline-delimited list of glob file paths to exclude while copying files from the post WAR extras folder."
 runs:
   using: 'node20'
   main: 'index.js'

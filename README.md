@@ -711,6 +711,34 @@ Coming soon!
     warnings-no-escape-quotes: false  # Escape the quotes in the warning output (default)
     warnings-no-escape-quotes: true   # Don't escape the quotes in the warning output
   ```
+- ***extras-folder-ignore***
+  Path to an ignore file that specifies which files shouldn't be copied from the extras folder. Path should be relative to the root directory of your GitHub repository. Ignore file should be newline-delimited and supports the glob format.
+  **Examples:**
+  ```yaml
+  with:
+    # ...
+    extras-folder-ignore: omitextras.ignore        # Points to an "omitextras.ignore" file in the root of the repository
+    extras-folder-ignore: build_ignore/dev.ignore  # Points to a "dev.ignore" file in the "build_ignore" folder.
+  ```
+  **Ignore file examples:**
+  ```sh
+  myfile.txt              # Don't copy the "myfile.txt" file in the root of extras folder.
+  myfolder/               # Don't copy the "myfolder" directory or any of its contents in the extras folder.
+  **/myfile.txt           # Don't copy any file named "myfile.txt" in any directory in the extras folder.
+  *.txt                   # Don't copy any .txt file in the root of the extras folder.
+  **.txt                  # Don't copy any .txt file in any directory in the extras folder.
+  **/drivers/mysql*.jar   # Don't copy any JAR files that start with "mysql" whose parent directory is "drivers" anywhere in the extras folder.
+  ```
+- ***post-war-extras-folder-ignore***
+  Path to an ignore file that specifices which files shouldn't be copied from post-WAR extras folder. Path should be relative to the root directory of your GitHub repository. Ignore file should be newline-delimited and supports the glob format.
+  **Examples:**
+  ```yaml
+  with:
+    # ...
+    post-war-extras-folder-ignore: omitextras.ignore        # Points to an "omitextras.ignore" file in the root of the repository
+    post-war-extras-folder-ignore: build_ignore/dev.ignore  # Points to a "dev.ignore" file in the "build_ignore" folder.
+  ```
+  See `extras-folder-ignore` for examples of the ignore file.
 
 ## Outputs
 

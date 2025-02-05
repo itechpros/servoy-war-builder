@@ -227,6 +227,27 @@ function buildDockerRunCommand() {
         });
     }
 
+    const extrasFolderIgnore = core.getInput("extras-folder-ignore"),
+        postWarExtrasFolderIgnore = core.getInput("post-war-extras-folder-ignore");
+    if (extrasFolderIgnore !== "") {
+        let extrasFolderIgnoreFullPath = `${process.env.GITHUB_WORKSPACE}/${extrasFolderIgnore}`;
+        if (!fs.existsSync(extrasFolderIgnoreFullPath)) {
+            core.setFailed(`Extras folder ignore file ${extrasFolderIgnore} does not exist.`);
+            process.exit();
+        } else {
+            commandArguments = commandArguments.concat(["--extras-folder-ignore", extrasFolderIgnore]);
+        }
+    }
+    if (postWarExtrasFolderIgnore !== "") {
+        let postWarExtrasFolderIgnoreFullPath = `${process.env.GITHUB_WORKSPACE}/${postWarExtrasFolderIgnore}`;
+        if (!fs.existsSync(postWarExtrasFolderIgnoreFullPath)) {
+            core.setFailed(`Post-WAR extras folder ignore file ${postWarExtrasFolderIgnore} does not exist.`);
+            process.exit();
+        } else {
+            commandArguments = commandArguments.concat(["--post-war-extras-ignore", postWarExtrasFolderIgnore]);
+        }
+    }
+
     return commandArguments;
 }
 
