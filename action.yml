@@ -150,6 +150,18 @@ inputs:
   build-max-memory:
     description: "Maximum amount of memory that can be consumed by the build process."
     default: "2048m"
+  errors-line-delimiter:
+    description: "Delimiter between entries in the error output."
+    default: "\\n"
+  errors-no-escape-quotes:
+    description: "Don't escape quotes in error output."
+    default: "false"
+  warnings-line-delimiter:
+    description: "Delimiter between entries in the warning output."
+    default: "\\n"
+  warnings-no-escape-quotes:
+    description: "Don't escape quotes in warning output."
+    default: "false"
 runs:
   using: 'node20'
   main: 'index.js'

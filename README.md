@@ -675,6 +675,50 @@ Coming soon!
     build-max-memory: 2048m  # Allow a maximum of 2GB of memory to be consumed during WAR build
     build-max-memory: 4096m  # Allow a maximum of 4GB of memory to be consumed during WAR build
   ```
+- ***errors-line-delimiter***
+  Delimiter between entries in the error output (default: "\\n").
+  **Examples:**
+  ```yaml
+  with:
+    # ...
+    errors-line-delimiter: "\\n"  # Errors are separated by "\n" (NOT newline) (default)
+    errors-line-delimiter: "|"    # Errors are separated by a pipe (|)
+  ```
+- ***errors-no-escape-quotes***
+  Don't escape quotes in error output (default false).
+  **Examples:**
+  ```yaml
+  with:
+    # ...
+    errors-no-escape-quotes: false  # Escape the quotes in the error output (default)
+    errors-no-escape-quotes: true   # Don't escape the quotes in the error output
+  ```
+- ***warnings-line-delimiter***
+  Delimiter between entries in the warning output (default: "\\n").
+  **Examples:**
+  ```yaml
+  with:
+    # ...
+    warnings-line-delimiter: "\\n"  # Warnings are separated by "\n" (NOT newline) (default)
+    warnings-line-delimiter: "|"    # Warnings are separated by a pipe (|)
+  ```
+- ***warnings-no-escape-quotes***
+  Don't escape quotes in warning output (default false).
+  **Examples:**
+  ```yaml
+  with:
+    # ...
+    warnings-no-escape-quotes: false  # Escape the quotes in the warning output (default)
+    warnings-no-escape-quotes: true   # Don't escape the quotes in the warning output
+  ```
+
+## Outputs
+
+ - ***error_output***
+   List of errors reported by the WAR build process, delimited by "\n" (NOT newline). Quotes are automatically escaped unless `errors-no-escape-quotes` is provided.
+ - ***warning_output***
+   List of warnings reported by the WAR build process, delimited by "\n" (NOT newline). Quotes are automatically escaped unless `warnings-no-escape-quotes` is provided.
+   
 
 # Supported Servoy Versions
 ## Servoy 6

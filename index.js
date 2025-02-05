@@ -29,6 +29,11 @@ try {
     // Pull down the Docker image
     downloadServoyImage(servoyVersion);
 
+    const errorEscapeQuotes = core.getInput("errors-no-escape-quotes").toString() === "false",
+          errorLineDelimiter = core.getInput("errors-line-delimiter"),
+          warningEscapeQuotes = core.getInput("warnings-no-escape-quotes").toString() === "false",
+          warningLineDelimiter = core.getInput("warnings-line-delimiter");
+
     // Our command is now ready. Let 'er rip.
     runDockerCommand(commandArguments, buildTimeout).catch((info) => {
         let buildOutput = info[0],
@@ -36,11 +41,15 @@ try {
         if (!~[null, undefined, ""].indexOf(buildOutput)) {
             let { errorLines, warningLines } = extractErrorWarningLines(buildOutput);
             if (errorLines.length > 0) {
-                let errorLinesString = errorLines.join("\\n").replace(/\"/g, '\\"');
+                let errorLinesString = errorLines.join(errorLineDelimiter);
+                if (errorEscapeQuotes)
+                    errorLinesString = errorLinesString.replace(/\"/g, '\\"');
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `ERROR_OUTPUT=${errorLinesString}\n`);
             }
             if (warningLines.length > 0) {
-                let warningLinesString = warningLines.join("\\n").replace(/\"/g, '\\"');
+                let warningLinesString = warningLines.join(warningLineDelimiter);
+                if (warningEscapeQuotes)
+                    warningLinesString = warningLinesString.replace(/\"/g, '\\"');
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `WARNING_OUTPUT=${warningLinesString}\n`);
             }
         }
