@@ -138,6 +138,7 @@ Coming soon!
 
 -  ***servoy-version*** 🔴 *required*  
    The full Servoy version to use for the build. To see a list of supported versions, please [click here](#supported-servoy-versions).
+   You can also use `nightly` for the latest updates from Servoy's master branch, or `nightly-lts` for the latest LTS updates.
 - ***api-key*** 🔴 *required*  
   [All Products Pack](https://servoycomponents.com/all-products-pack) API key obtained from the  [Servoy Components website](https://servoycomponents.com/). We recommend putting this value in [GitHub Action Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to prevent accidental exposure through the GitHub Action logs, or from unauthorized users.
 - ***solution-name*** 🔴 *required*  

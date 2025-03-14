@@ -256,7 +256,7 @@ function verifyServoyImage(servoyVersion) {
 
     // Make sure the provided Servoy version number matches the version format (prevent command injection)
     let servoyVersionFormat = /^\d{1,4}\.\d{1,2}(\.\d+)?\.\d{4}$/;
-    if (!servoyVersionFormat.test(servoyVersion)) {
+    if (!servoyVersionFormat.test(servoyVersion) && ["nightly", "nightly-lts"].indexOf(servoyVersion) == -1) {
         core.setFailed(`Invalid Servoy version: ${servoyVersion}`);
         process.exit();
     }
