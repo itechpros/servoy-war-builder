@@ -35,27 +35,39 @@ try {
           warningLineDelimiter = core.getInput("warnings-line-delimiter");
 
     // Our command is now ready. Let 'er rip.
-    runDockerCommand(commandArguments, buildTimeout).catch((info) => {
-        let buildOutput = info[0],
-            failMessage = info[1];
-        if (!~[null, undefined, ""].indexOf(buildOutput)) {
-            let { errorLines, warningLines } = extractErrorWarningLines(buildOutput);
-            if (errorLines.length > 0) {
-                let errorLinesString = errorLines.join(errorLineDelimiter);
-                if (errorEscapeQuotes)
-                    errorLinesString = errorLinesString.replace(/\"/g, '\\"');
-                fs.appendFileSync(process.env.GITHUB_OUTPUT, `ERROR_OUTPUT=${errorLinesString}\n`);
+    runDockerCommand(commandArguments, buildTimeout)
+        .then((info) => {
+            let buildOutput = info[0];
+            if (!~[null, undefined].indexOf(buildOutput)) {
+                let { warningLines } = extractErrorWarningLines(buildOutput);
+                if (warningLines.length > 0) {
+                    let warningLinesString = warningLines.join(warningLineDelimiter);
+                    if (warningEscapeQuotes)
+                        warningLinesString = warningLinesString.replace(/\"/g, '\\"');
+                    fs.appendFileSync(process.env.GITHUB_OUTPUT, `WARNING_OUTPUT=${warningLinesString}\n`);
+                }
             }
-            if (warningLines.length > 0) {
-                let warningLinesString = warningLines.join(warningLineDelimiter);
-                if (warningEscapeQuotes)
-                    warningLinesString = warningLinesString.replace(/\"/g, '\\"');
-                fs.appendFileSync(process.env.GITHUB_OUTPUT, `WARNING_OUTPUT=${warningLinesString}\n`);
+        }).catch((info) => {
+            let buildOutput = info[0],
+                failMessage = info[1];
+            if (!~[null, undefined, ""].indexOf(buildOutput)) {
+                let { errorLines, warningLines } = extractErrorWarningLines(buildOutput);
+                if (errorLines.length > 0) {
+                    let errorLinesString = errorLines.join(errorLineDelimiter);
+                    if (errorEscapeQuotes)
+                        errorLinesString = errorLinesString.replace(/\"/g, '\\"');
+                    fs.appendFileSync(process.env.GITHUB_OUTPUT, `ERROR_OUTPUT=${errorLinesString}\n`);
+                }
+                if (warningLines.length > 0) {
+                    let warningLinesString = warningLines.join(warningLineDelimiter);
+                    if (warningEscapeQuotes)
+                        warningLinesString = warningLinesString.replace(/\"/g, '\\"');
+                    fs.appendFileSync(process.env.GITHUB_OUTPUT, `WARNING_OUTPUT=${warningLinesString}\n`);
+                }
             }
-        }
-        core.setFailed(failMessage);
-        process.exit();
-    });
+            core.setFailed(failMessage);
+            process.exit();
+        });
 } catch (e) {
     core.setFailed(e.message);
 }
@@ -377,7 +389,7 @@ function runDockerCommand(commandArguments, buildTimeout) {
             } else if (code !== 0) {
                 rej([dockerRunOutput, "WAR build failed. Please check the logs for more details."]);
             } else {
-                res();
+                res([dockerRunOutput]);
             }
         });
     });
