@@ -138,6 +138,9 @@ inputs:
   ng1:
     description: "Export NG1 client resources"
     default: "false"
+  verbose:
+    description: "Enable verbose logging from the Servoy WAR builder."
+    default: "false"
   licenses:
     description: "Space delimited licenses to include in the WAR file. Format should be '<company_name> <code> <licenses>'. If you have multiple licenses, use multiple lines."
   extras-folder:

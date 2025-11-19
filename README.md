@@ -630,6 +630,16 @@ Coming soon!
     ng1: true   # Export NG1 resources
     ng1: false  # Don't export NG1 resources (default)
   ```
+- ***verbose***  
+  Enable verbose logging from the Servoy WAR builder.  
+  **WAR export flag** `-verbose`  
+  **Default:** false
+  ```yaml
+  with:
+    # ...
+    verbose: true   # Enable verbose logging
+    verbose: false  # Disable verbose logging (default)
+  ```
 - ***licenses***  
   Space delimited licenses to include in the WAR file. Format should be '<company_name> <license code> <licenses>'. If you have multiple licenses, use multiple lines. We recommend putting the Servoy license value in [GitHub Action Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) to prevent accidental exposure through the GitHub Action logs, or from unauthorized users.  
   **Examples:**

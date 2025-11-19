@@ -182,7 +182,8 @@ function buildDockerRunCommand() {
         "use-as-real-admin-user": "-useAsRealAdminUser",
         "do-not-overwrite-db-server-properties": "-doNotOverwriteDBServerProperties",
         "overwrite-all-properties": "-overwriteAllProperties",
-        "ng1": "-ng1"
+        "ng1": "-ng1",
+        "verbose": "-verbose"
     };
     Object.keys(stringFields).forEach((stringField) => {
         let stringFieldValue = core.getInput(stringField),
