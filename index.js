@@ -32,7 +32,9 @@ try {
     const errorEscapeQuotes = core.getInput("errors-no-escape-quotes").toString() === "false",
           errorLineDelimiter = core.getInput("errors-line-delimiter"),
           warningEscapeQuotes = core.getInput("warnings-no-escape-quotes").toString() === "false",
-          warningLineDelimiter = core.getInput("warnings-line-delimiter");
+          warningLineDelimiter = core.getInput("warnings-line-delimiter"),
+          errorsFile = core.getInput("errors-file"),
+          warningsFile = core.getInput("warnings-file");
 
     // Our command is now ready. Let 'er rip.
     runDockerCommand(commandArguments, buildTimeout)
@@ -45,6 +47,9 @@ try {
                     if (warningEscapeQuotes)
                         warningLinesString = warningLinesString.replace(/\"/g, '\\"');
                     fs.appendFileSync(process.env.GITHUB_OUTPUT, `WARNING_OUTPUT=${warningLinesString}\n`);
+                    if (!~[null, undefined].indexOf(warningsFile) && warningsFile.trim() !== "") {
+                        fs.writeFileSync(warningsFile, warningLinesString);
+                    }
                 }
             }
         }).catch((info) => {
@@ -57,12 +62,18 @@ try {
                     if (errorEscapeQuotes)
                         errorLinesString = errorLinesString.replace(/\"/g, '\\"');
                     fs.appendFileSync(process.env.GITHUB_OUTPUT, `ERROR_OUTPUT=${errorLinesString}\n`);
+                    if (!~[null, undefined].indexOf(errorsFile) && errorsFile.trim() !== "") {
+                        fs.writeFileSync(errorsFile, errorLinesString);
+                    }
                 }
                 if (warningLines.length > 0) {
                     let warningLinesString = warningLines.join(warningLineDelimiter);
                     if (warningEscapeQuotes)
                         warningLinesString = warningLinesString.replace(/\"/g, '\\"');
                     fs.appendFileSync(process.env.GITHUB_OUTPUT, `WARNING_OUTPUT=${warningLinesString}\n`);
+                    if (!~[null, undefined].indexOf(warningsFile) && warningsFile.trim() !== "") {
+                        fs.writeFileSync(warningsFile, warningLinesString);
+                    }
                 }
             }
             core.setFailed(failMessage);

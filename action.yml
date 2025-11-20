@@ -169,6 +169,10 @@ inputs:
     description: "Path to a newline-delimited list of glob file paths to exclude while copying files from the extras folder."
   post-war-extras-folder-ignore:
     description: "Path to a newline-delimited list of glob file paths to exclude while copying files from the post WAR extras folder."
+  errors-file:
+    description: "Path to the file where build errors are written to."
+  warnings-file:
+    description: "Path to the file where build warnings are written to."
 runs:
   using: 'node20'
   main: 'index.js'

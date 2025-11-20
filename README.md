@@ -686,7 +686,7 @@ Coming soon!
     build-max-memory: 2048m  # Allow a maximum of 2GB of memory to be consumed during WAR build
     build-max-memory: 4096m  # Allow a maximum of 4GB of memory to be consumed during WAR build
   ```
-- ***errors-line-delimiter***
+- ***errors-line-delimiter***  
   Delimiter between entries in the error output (default: "\\n").
   **Examples:**
   ```yaml
@@ -695,7 +695,7 @@ Coming soon!
     errors-line-delimiter: "\\n"  # Errors are separated by "\n" (NOT newline) (default)
     errors-line-delimiter: "|"    # Errors are separated by a pipe (|)
   ```
-- ***errors-no-escape-quotes***
+- ***errors-no-escape-quotes***  
   Don't escape quotes in error output (default false).
   **Examples:**
   ```yaml
@@ -704,7 +704,7 @@ Coming soon!
     errors-no-escape-quotes: false  # Escape the quotes in the error output (default)
     errors-no-escape-quotes: true   # Don't escape the quotes in the error output
   ```
-- ***warnings-line-delimiter***
+- ***warnings-line-delimiter***  
   Delimiter between entries in the warning output (default: "\\n").
   **Examples:**
   ```yaml
@@ -713,7 +713,7 @@ Coming soon!
     warnings-line-delimiter: "\\n"  # Warnings are separated by "\n" (NOT newline) (default)
     warnings-line-delimiter: "|"    # Warnings are separated by a pipe (|)
   ```
-- ***warnings-no-escape-quotes***
+- ***warnings-no-escape-quotes***  
   Don't escape quotes in warning output (default false).
   **Examples:**
   ```yaml
@@ -722,7 +722,7 @@ Coming soon!
     warnings-no-escape-quotes: false  # Escape the quotes in the warning output (default)
     warnings-no-escape-quotes: true   # Don't escape the quotes in the warning output
   ```
-- ***extras-folder-ignore***
+- ***extras-folder-ignore***  
   Path to an ignore file that specifies which files shouldn't be copied from the extras folder. Path should be relative to the root directory of your GitHub repository. Ignore file should be newline-delimited and supports the glob format.
   **Examples:**
   ```yaml
@@ -740,7 +740,7 @@ Coming soon!
   **.txt                  # Don't copy any .txt file in any directory in the extras folder.
   **/drivers/mysql*.jar   # Don't copy any JAR files that start with "mysql" whose parent directory is "drivers" anywhere in the extras folder.
   ```
-- ***post-war-extras-folder-ignore***
+- ***post-war-extras-folder-ignore***  
   Path to an ignore file that specifices which files shouldn't be copied from post-WAR extras folder. Path should be relative to the root directory of your GitHub repository. Ignore file should be newline-delimited and supports the glob format.
   **Examples:**
   ```yaml
@@ -750,6 +750,22 @@ Coming soon!
     post-war-extras-folder-ignore: build_ignore/dev.ignore  # Points to a "dev.ignore" file in the "build_ignore" folder.
   ```
   See `extras-folder-ignore` for examples of the ignore file.
+- ***errors-file***  
+  Path to the file where build errors are written to.  
+  **Examples:**  
+  ```yaml
+  with:
+    # ...
+    errors-file: myerrors.txt  # Servoy build errors will be written to the myerrors.txt file in the root directory
+  ```  
+- ***warnings-file***
+  Path to the file where build warnings are written to.  
+  **Examples:**  
+  ```yaml
+  with:
+    # ...
+    warnings-file: mywarnings.txt  # Servoy build errors will be written to the mywarnings.txt file in the root directory
+  ```
 
 ## Outputs
 
