@@ -208,7 +208,8 @@ function buildDockerRunCommand() {
         "do-not-overwrite-db-server-properties": "-doNotOverwriteDBServerProperties",
         "overwrite-all-properties": "-overwriteAllProperties",
         "ng1": "-ng1",
-        "verbose": "-verbose"
+        "verbose": "-verbose",
+        "es6": "-es6"
     };
     Object.keys(stringFields).forEach((stringField) => {
         let stringFieldValue = core.getInput(stringField),

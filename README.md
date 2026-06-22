@@ -766,6 +766,14 @@ Coming soon!
     # ...
     warnings-file: mywarnings.txt  # Servoy build errors will be written to the mywarnings.txt file in the root directory
   ```
+- ***es6***  
+  Enables the ECMAScript (ES6) parser.
+  **Examples:**  
+  ```yaml
+  with:
+    # ...
+    es6: true  # Enable the ECMAScript parser
+  ```
 
 ## Outputs
 

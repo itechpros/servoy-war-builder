@@ -173,6 +173,8 @@ inputs:
     description: "Path to the file where build errors are written to."
   warnings-file:
     description: "Path to the file where build warnings are written to."
+  es6:
+    description: "Enable the ECMAScript (ES6) parser."
 runs:
   using: 'node20'
   main: 'index.js'
